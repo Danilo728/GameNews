@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameNews - Notícias de Games</title>
+    <style>
+        /* Reset CSS básico para padronização entre navegadores */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilos do corpo da página */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        /* Container principal do cabeçalho */
+        .header {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Layout flexível do cabeçalho */
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Botão do menu hambúrguer no canto esquerdo */
+        .menu-button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .menu-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        /* Ícone do hambúrguer (três linhas) */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            width: 20px;
+            height: 15px;
+            justify-content: space-between;
+        }
+
+        .hamburger span {
+            width: 100%;
+            height: 2px;
+            background-color: white;
+            border-radius: 1px;
+            transition: 0.3s;
+        }
+
+        /* Logo/título do site no centro */
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255, 107, 107, 0.5);
+        }
+
+        /* Container do bloco de login */
+        .login-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        /* Botões de login e registro */
+        .login-btn, .register-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .login-btn {
+            background: transparent;
+            color: #4ecdc4;
+            border: 2px solid #4ecdc4;
+        }
+
+        .login-btn:hover {
+            background: #4ecdc4;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .register-btn {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            color: white;
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(78, 205, 196, 0.4);
+        }
+
+        /* Container principal das notícias */
+        .main-content {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Título da seção de notícias principais */
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 40px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Container dos três quadrados de notícias */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        /* Estilo individual de cada card de notícia */
+        .news-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: #4ecdc4;
+        }
+
+        /* Efeito de brilho no hover */
+        .news-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+            opacity: 0;
+        }
+
+        .news-card:hover::before {
+            animation: shine 0.6s ease-in-out;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); opacity: 0; }
+        }
+
+        /* Imagem de placeholder para as notícias */
+        .news-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Título da notícia */
+        .news-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        /* Descrição da notícia */
+        .news-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* Data da notícia */
+        .news-date {
+            color: #4ecdc4;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* Responsividade para tablets */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .logo {
+                font-size: 24px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+        }
+
+        /* Responsividade para celulares */
+        @media (max-width: 480px) {
+            .header {
+                padding: 10px 15px;
+            }
+            
+            .login-container {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .login-btn, .register-btn {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+            
+            .main-content {
+                padding: 20px 15px;
+            }
+            
+            .news-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho com navegação -->
+    <header class="header">
+        <div class="header-container">
+            <!-- Botão do menu no canto esquerdo -->
+            <button class="menu-button" onclick="toggleMenu()">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+            
+            <!-- Logo/título central -->
+            <div class="logo">GameNews</div>
+            
+            <!-- Bloco de login no canto direito -->
+            <div class="login-container">
+                <a href="#" class="login-btn" onclick="showLogin()">Login</a>
+                <a href="#" class="register-btn" onclick="showRegister()">Cadastrar</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo principal -->
+    <main class="main-content">
+        <!-- Título da seção -->
+        <h1 class="section-title">Notícias Principais</h1>
+        
+        <!-- Grade com os três quadrados de notícias -->
+        <div class="news-grid">
+            <!-- Primeira notícia -->
+            <article class="news-card" onclick="openNews(1)">
+                <div class="news-image">🎮</div>
+                <h2 class="news-title">Cyberpunk 2077: Nova Expansão Anunciada</h2>
+                <p class="news-description">
+                    CD Projekt RED revela detalhes sobre a próxima grande expansão do aclamado RPG futurista, 
+                    prometendo novas áreas para explorar e personagens inesquecíveis.
+                </p>
+                <span class="news-date">23 de Maio, 2025</span>
+            </article>
+            
+            <!-- Segunda notícia -->
+            <article class="news-card" onclick="openNews(2)">
+                <div class="news-image">🏆</div>
+                <h2 class="news-title">E-Sports Mundial 2025: Grandes Surpresas</h2>
+                <p class="news-description">
+                    O campeonato mundial de e-sports trouxe resultados inesperados, com equipes emergentes 
+                    desafiando os gigantes estabelecidos em competições épicas.
+                </p>
+                <span class="news-date">22 de Maio, 2025</span>
+            </article>
+            
+            <!-- Terceira notícia -->
+            <article class="news-card" onclick="openNews(3)">
+                <div class="news-image">🚀</div>
+                <h2 class="news-title">Starfield: Atualização Massiva Chegando</h2>
+                <p class="news-description">
+                    Bethesda anuncia a maior atualização desde o lançamento, incluindo novos planetas, 
+                    missões e melhorias no sistema de exploração espacial.
+                </p>
+                <span class="news-date">21 de Maio, 2025</span>
+            </article>
+        </div>
+    </main>
+
+    <script>
+        // Função para alternar o menu (implementação futura)
+        function toggleMenu() {
+            alert('Menu em desenvolvimento! Aqui você poderá navegar por diferentes seções do site.');
+        }
+
+        // Função para mostrar o formulário de login
+        function showLogin() {
+            alert('Sistema de login em desenvolvimento! Em breve você poderá fazer login em sua conta.');
+        }
+
+        // Função para mostrar o formulário de cadastro
+        function showRegister() {
+            alert('Sistema de cadastro em desenvolvimento! Em breve você poderá criar sua conta.');
+        }
+
+        // Função para abrir notícia específica
+        function openNews(newsId) {
+            const newsInfo = {
+                1: 'Cyberpunk 2077: Nova Expansão Anunciada',
+                2: 'E-Sports Mundial 2025: Grandes Surpresas', 
+                3: 'Starfield: Atualização Massiva Chegando'
+            };
+            
+            alert(`Abrindo: ${newsInfo[newsId]}\n\nEsta funcionalidade será expandida para mostrar o artigo completo!`);
+        }
+
+        // Animação suave no carregamento da página
+        window.addEventListener('load', function() {
+            const cards = document.querySelectorAll('.news-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(30px)';
+                    card.style.transition = 'all 0.6s ease';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+</html>
