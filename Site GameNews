@@ -313,34 +313,31 @@
             <!-- Primeira notícia -->
             <article class="news-card" onclick="openNews(1)">
                 <div class="news-image">🎮</div>
-                <h2 class="news-title">Cyberpunk 2077: Nova Expansão Anunciada</h2>
+                <h2 class="news-title">Hollow Knight: Silksong</h2>
                 <p class="news-description">
-                    CD Projekt RED revela detalhes sobre a próxima grande expansão do aclamado RPG futurista, 
-                    prometendo novas áreas para explorar e personagens inesquecíveis.
+                    A continuação de "Hollow Knight" é um dos jogos indie mais aguardados. A plataforma metroidvania tem um grande apelo e muita gente está esperando por novidades.
                 </p>
-                <span class="news-date">23 de Maio, 2025</span>
+                <span class="news-date">31 de Maio, 2025</span>
             </article>
             
             <!-- Segunda notícia -->
             <article class="news-card" onclick="openNews(2)">
                 <div class="news-image">🏆</div>
-                <h2 class="news-title">E-Sports Mundial 2025: Grandes Surpresas</h2>
+                <h2 class="news-title">Super Mario Wonder (Switch)</h2>
                 <p class="news-description">
-                    O campeonato mundial de e-sports trouxe resultados inesperados, com equipes emergentes 
-                    desafiando os gigantes estabelecidos em competições épicas.
+                    A Nintendo acaba de lançar um novo título da franquia Mario, focando em novos poderes e mecânicas que transformam a jogabilidade. Pode ser um bom destaque para o seu site.
                 </p>
-                <span class="news-date">22 de Maio, 2025</span>
+                <span class="news-date">30 de Maio, 2025</span>
             </article>
             
             <!-- Terceira notícia -->
             <article class="news-card" onclick="openNews(3)">
                 <div class="news-image">🚀</div>
-                <h2 class="news-title">Starfield: Atualização Massiva Chegando</h2>
+                <h2 class="news-title">Dishonored: Definitive Edition</h2>
                 <p class="news-description">
-                    Bethesda anuncia a maior atualização desde o lançamento, incluindo novos planetas, 
-                    missões e melhorias no sistema de exploração espacial.
+                     Entre os dias 29 de maio e 5 de junho de 2025, Dishonored: Definitive Edition pode ser adquirido gratuitamente na Epic Games Store. O jogo de ação e furtividade, desenvolvido pela Arkane Studios, coloca o jogador no controle de Corvo Attano, um guarda-real em busca de vingança após ser acusado injustamente do assassinato da imperatriz.
                 </p>
-                <span class="news-date">21 de Maio, 2025</span>
+                <span class="news-date">29 de Maio, 2025</span>
             </article>
         </div>
     </main>
